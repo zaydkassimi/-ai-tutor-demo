@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { use, useMemo, useRef, useState } from "react";
 
 type Message = { role: "user" | "assistant"; content: string };
@@ -35,7 +36,8 @@ export default function LessonPage({ params }: { params: Promise<{ subject: stri
 
   const send = async (text: string) => {
     if (!text.trim()) return;
-    const nextMessages = [...messages, { role: "user", content: text }];
+    const userMessage: Message = { role: "user", content: text };
+    const nextMessages: Message[] = [...messages, userMessage];
     setMessages(nextMessages);
     setInput("");
     const res = await fetch("/api/tutor", {
@@ -80,7 +82,7 @@ export default function LessonPage({ params }: { params: Promise<{ subject: stri
 
         <section className="mt-4 grid sm:grid-cols-[160px_1fr] gap-4 items-start">
           <div className="border rounded-lg p-3 flex flex-col items-center">
-            <img src={avatarUrl} alt="Avatar" className="w-24 h-24" />
+            <Image src={avatarUrl} alt="Avatar" width={96} height={96} className="w-24 h-24" />
             <div className="text-xs text-gray-600 mt-2">AI Avatar (placeholder)</div>
           </div>
 
