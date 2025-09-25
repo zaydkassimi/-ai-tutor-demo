@@ -19,7 +19,11 @@ export default function LessonPage({ params }: { params: Promise<{ subject: stri
   const chunksRef = useRef<Blob[]>([]);
 
   const avatarUrl = useMemo(() => {
-    return "/vercel.svg"; // placeholder avatar image; could be replaced with HeyGen video
+    return "/vercel.svg";
+  }, []);
+  const avatarVideo = useMemo(() => {
+    if (typeof window === "undefined") return "";
+    return process.env.NEXT_PUBLIC_AVATAR_VIDEO_URL || ""; // optional HeyGen/DID URL
   }, []);
 
   const speak = (text: string) => {
@@ -84,9 +88,16 @@ export default function LessonPage({ params }: { params: Promise<{ subject: stri
           <div className="border rounded-lg p-3 flex flex-col items-center">
             <Image src={avatarUrl} alt="Avatar" width={96} height={96} className="w-24 h-24" />
             <div className="text-xs text-gray-600 mt-2">AI Avatar (placeholder)</div>
+            {avatarVideo ? (
+              <video src={avatarVideo} className="mt-2 rounded w-full" autoPlay muted loop playsInline />
+            ) : null}
           </div>
 
           <div className="border rounded-lg p-4">
+            <div className="mb-3">
+              <video className="w-full rounded" controls src={"https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"} />
+              <div className="text-xs text-gray-600 mt-1">Lesson video (placeholder)</div>
+            </div>
             <div className="h-[320px] overflow-y-auto space-y-3">
               {messages.map((m, i) => (
                 <div key={i} className={m.role === "assistant" ? "text-blue-800" : "text-gray-900"}>

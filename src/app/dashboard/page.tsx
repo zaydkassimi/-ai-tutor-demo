@@ -54,6 +54,8 @@ export default function DashboardPage() {
           <h2 className="font-semibold">Try a quiz</h2>
           <div className="mt-3">
             <Link href="/quiz/demo" className="inline-block bg-green-600 text-white px-4 py-2 rounded">Start Demo Quiz</Link>
+            <Link href="/placement" className="inline-block ml-3 border px-4 py-2 rounded">Placement Quiz</Link>
+            <Link href="/plan" className="inline-block ml-3 border px-4 py-2 rounded">Study Plan</Link>
           </div>
         </section>
       </div>
